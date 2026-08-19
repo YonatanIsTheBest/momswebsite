@@ -295,3 +295,34 @@ nav a { text-decoration: none; color: #333; font-weight: 600; }
     border-radius: 6px;
     border: 1px dashed #d4c8b3;
 }
+
+/* --- Mobile Responsive Fixes --- */
+@media (max-width: 768px) {
+    /* Stack the store grid into a single column */
+    .store-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+        margin-top: 20px !important;
+    }
+
+    /* Adjust main content container padding for phones */
+    .main-content {
+        padding: 0 10px !important;
+        margin: 20px auto !important;
+    }
+
+    /* Make splash screen modal fit neatly on smaller screens */
+    .splash-modal {
+        width: 90% !important;
+        padding: 30px 20px !important;
+    }
+
+    /* Make header compact */
+    header {
+        padding: 12px 20px !important;
+    }
+
+    .logo {
+        font-size: 20px !important;
+    }
+}
