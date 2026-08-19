@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Store Entry</title>
+    <title>Double Redemption / הגאולה הכפולה</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- Splash Screen -->
     <div class="splash-overlay" id="splash-screen">
-        <div class="splash-modal fade-in">
-            <!-- Step 1: Location Selection -->
+        <div class="splash-modal">
+            <!-- Step 1 -->
             <div id="step-location" class="step-container active">
                 <h2>Welcome</h2>
-                <div class="divider"></div>
-                <p>Please select your shipping region to continue:</p>
+                <p>Where are you ordering from?</p>
                 <div class="button-group">
                     <button class="primary-btn" onclick="setRegion('Israel')">Israel</button>
                     <button class="primary-btn" onclick="setRegion('USA')">United States</button>
                 </div>
             </div>
 
-            <!-- Step 2: Language Selection -->
+            <!-- Step 2 -->
             <div id="step-language" class="step-container">
                 <h2>Choose Language</h2>
-                <div class="divider"></div>
                 <p>Select your preferred website language:</p>
                 <div class="button-group">
                     <button class="secondary-btn" onclick="setLanguage('he')">עברית</button>
@@ -36,10 +36,51 @@
     </div>
 
     <!-- Main Content -->
-    <main id="main-content" style="display: none;">
-        <h1>Main Store Page</h1>
-        <p>Book details, cart, and checkout will go here.</p>
-    </main>
+    <div id="main-content" class="main-content">
+        <header>
+            <div class="logo">הגאולה הכפולה</div>
+            <div class="cart">🛒 (0)</div>
+        </header>
+
+        <div class="store-grid">
+            <!-- Left Side: Image Gallery -->
+            <div class="gallery">
+                <img src="image_363197.jpg" id="hero-img" class="main-image" alt="Book Cover">
+                <div class="thumbnail-row">
+                    <img src="image_363197.jpg" class="thumb" onclick="changeImage(this.src)" alt="Cover Image">
+                    <img src="image_3631b5.jpg" class="thumb" onclick="changeImage(this.src)" alt="Coffee Image">
+                    <img src="image_3631d4.jpg" class="thumb" onclick="changeImage(this.src)" alt="Desk Image">
+                </div>
+            </div>
+
+            <!-- Right Side: Details & Buying Info -->
+            <div class="product-info">
+                <div class="title-section">
+                    <h1 id="book-title">The Double Redemption / הגאולה הכפולה</h1>
+                </div>
+
+                <!-- Live Description Area -->
+                <div class="custom-description-area" id="desc-placeholder">
+                    <!-- The JS will inject the translated paragraphs here -->
+                </div>
+
+                <!-- Pricing Card with Edition Selector -->
+                <div class="pricing-card">
+                    <h3 id="edition-label">Select Edition:</h3>
+                    <div class="edition-options">
+                        <!-- Hebrew is selected by default -->
+                        <button class="edition-btn active" id="btn-he" onclick="selectEdition('he')">Hebrew</button>
+                        <button class="edition-btn" id="btn-ru" onclick="selectEdition('ru')">Russian</button>
+                    </div>
+
+                    <h3 id="price-label" style="margin-top: 30px;">Price (incl. shipping)</h3>
+                    <div class="price-display" id="final-price">--</div>
+                    <div class="price-subtext" id="final-subtext">--</div>
+                    <button class="add-to-cart" id="add-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
