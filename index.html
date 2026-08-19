@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Store Entry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="splash-overlay" id="splash-screen">
-        <div class="splash-modal">
+        <div class="splash-modal fade-in">
             <!-- Step 1: Location Selection -->
-            <div id="step-location">
+            <div id="step-location" class="step-container active">
                 <h2>Welcome</h2>
-                <p>Where are you buying from?</p>
+                <div class="divider"></div>
+                <p>Please select your shipping region to continue:</p>
                 <div class="button-group">
                     <button class="primary-btn" onclick="setRegion('Israel')">Israel</button>
-                    <button class="primary-btn" onclick="setRegion('USA')">USA</button>
+                    <button class="primary-btn" onclick="setRegion('USA')">United States</button>
                 </div>
             </div>
 
-            <!-- Step 2: Language Selection (Hidden by default) -->
-            <div id="step-language" style="display: none;">
+            <!-- Step 2: Language Selection -->
+            <div id="step-language" class="step-container">
                 <h2>Choose Language</h2>
+                <div class="divider"></div>
                 <p>Select your preferred website language:</p>
                 <div class="button-group">
                     <button class="secondary-btn" onclick="setLanguage('he')">עברית</button>
@@ -32,7 +35,7 @@
         </div>
     </div>
 
-    <!-- Main Content (Hidden until splash is cleared) -->
+    <!-- Main Content -->
     <main id="main-content" style="display: none;">
         <h1>Main Store Page</h1>
         <p>Book details, cart, and checkout will go here.</p>

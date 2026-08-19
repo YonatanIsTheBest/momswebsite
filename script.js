@@ -4,22 +4,38 @@ let userLanguage = '';
 function setRegion(region) {
     userRegion = region;
     
-    // Hide location step and show language step
-    document.getElementById('step-location').style.display = 'none';
-    document.getElementById('step-language').style.display = 'block';
+    const stepLocation = document.getElementById('step-location');
+    const stepLanguage = document.getElementById('step-language');
+    
+    // Fade out location step
+    stepLocation.style.opacity = '0';
+    
+    setTimeout(() => {
+        stepLocation.classList.remove('active');
+        
+        // Prepare language step
+        stepLanguage.classList.add('active');
+        
+        // Trigger fade in
+        setTimeout(() => {
+            stepLanguage.style.opacity = '1';
+        }, 50);
+        
+    }, 400); // Wait for fade out to finish
 }
 
 function setLanguage(language) {
     userLanguage = language;
+    const splashScreen = document.getElementById('splash-screen');
     
-    // Hide the entire splash screen
-    document.getElementById('splash-screen').style.display = 'none';
+    // Fade out the whole splash screen
+    splashScreen.style.opacity = '0';
+    splashScreen.style.transition = 'opacity 0.5s ease';
     
-    // Show the main content (or redirect to a new page)
-    document.getElementById('main-content').style.display = 'block';
+    setTimeout(() => {
+        splashScreen.style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    }, 500);
     
-    // Example of a redirect based on choices:
-    // window.location.href = `/${userRegion.toLowerCase()}/${userLanguage}`;
-    
-    console.log(`User selected Region: ${userRegion}, Language: ${userLanguage}`);
+    console.log(`Region: ${userRegion}, Language: ${userLanguage}`);
 }

@@ -1,8 +1,15 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f7f1; /* Light parchment background */
-    color: #333;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: linear-gradient(135deg, #f5f3ec 0%, #e6dfcc 100%);
+    color: #4a4a4a;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #433829;
+    margin-bottom: 10px;
 }
 
 .splash-overlay {
@@ -11,7 +18,8 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(230, 222, 204, 0.95); 
+    background-color: rgba(245, 243, 236, 0.85);
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,49 +28,86 @@ body {
 
 .splash-modal {
     background: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 50px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(67, 56, 41, 0.15);
     text-align: center;
-    max-width: 400px;
-    width: 90%;
+    max-width: 450px;
+    width: 85%;
+    border-top: 5px solid #8b7355;
 }
 
-.splash-modal h2 {
-    margin-top: 0;
-    color: #5c4e3b; 
+.divider {
+    width: 50px;
+    height: 2px;
+    background-color: #d4c8b3;
+    margin: 0 auto 20px auto;
+}
+
+.step-container {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.step-container.active {
+    display: block;
+    opacity: 1;
 }
 
 .button-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 25px;
 }
 
 button {
-    padding: 12px 24px;
+    padding: 14px 24px;
     font-size: 16px;
+    font-weight: 600;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .primary-btn {
     background-color: #8b7355;
     color: white;
+    box-shadow: 0 4px 6px rgba(139, 115, 85, 0.2);
 }
 
 .primary-btn:hover {
     background-color: #6e5b43;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(139, 115, 85, 0.3);
 }
 
 .secondary-btn {
-    background-color: #e3dec6;
-    color: #333;
+    background-color: #f2efe6;
+    color: #433829;
+    border: 1px solid #d4c8b3;
 }
 
 .secondary-btn:hover {
-    background-color: #d1cbb0;
+    background-color: #e6dfcc;
+    transform: translateY(-2px);
+}
+
+/* Initial load animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
 }
