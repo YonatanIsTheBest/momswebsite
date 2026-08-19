@@ -12,26 +12,28 @@
     <!-- Splash Screen -->
     <div class="splash-overlay" id="splash-screen">
         <div class="splash-modal">
-            <!-- Step 1 -->
-            <div id="step-location" class="step-container active">
-                <h2>Welcome</h2>
-                <p>Where are you ordering from?</p>
-                <div class="button-group">
-                    <button class="primary-btn" onclick="setRegion('Israel')">Israel</button>
-                    <button class="primary-btn" onclick="setRegion('USA')">United States</button>
-                </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div id="step-language" class="step-container">
-                <h2>Choose Language</h2>
-                <p>Select your preferred website language:</p>
+            
+            <!-- Step 1: Language (Now First) -->
+            <div id="step-language" class="step-container active">
+                <h2>Language / שפה / Язык</h2>
+                <p>Select your website language:</p>
                 <div class="button-group">
                     <button class="secondary-btn" onclick="setLanguage('he')">עברית</button>
                     <button class="secondary-btn" onclick="setLanguage('ru')">Русский</button>
                     <button class="secondary-btn" onclick="setLanguage('en')">English</button>
                 </div>
             </div>
+
+            <!-- Step 2: Location (Now Second, translates automatically) -->
+            <div id="step-location" class="step-container">
+                <h2 id="splash-loc-title">Welcome</h2>
+                <p id="splash-loc-sub">Where are you ordering from?</p>
+                <div class="button-group">
+                    <button class="primary-btn" id="splash-btn-il" onclick="setRegion('Israel')">Israel</button>
+                    <button class="primary-btn" id="splash-btn-us" onclick="setRegion('USA')">United States</button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -39,7 +41,6 @@
     <div id="main-content" class="main-content">
         <header>
             <div class="logo">הגאולה הכפולה</div>
-            <div class="cart">🛒 (0)</div>
         </header>
 
         <div class="store-grid">
@@ -61,22 +62,32 @@
 
                 <!-- Live Description Area -->
                 <div class="custom-description-area" id="desc-placeholder">
-                    <!-- The JS will inject the translated paragraphs here -->
                 </div>
 
-                <!-- Pricing Card with Edition Selector -->
+                <!-- Pricing & Order Card -->
                 <div class="pricing-card">
                     <h3 id="edition-label">Select Edition:</h3>
                     <div class="edition-options">
-                        <!-- Hebrew is selected by default -->
                         <button class="edition-btn active" id="btn-he" onclick="selectEdition('he')">Hebrew</button>
                         <button class="edition-btn" id="btn-ru" onclick="selectEdition('ru')">Russian</button>
                     </div>
 
-                    <h3 id="price-label" style="margin-top: 30px;">Price (incl. shipping)</h3>
+                    <h3 id="price-label" style="margin-top: 30px;">Price</h3>
                     <div class="price-display" id="final-price">--</div>
-                    <div class="price-subtext" id="final-subtext">--</div>
-                    <button class="add-to-cart" id="add-cart-btn">Add to Cart</button>
+                    
+                    <!-- New Order Form Area -->
+                    <div class="order-form">
+                        <input type="text" id="buyer-name" placeholder="Full Name" required>
+                        
+                        <h4 id="payment-label">Payment Method:</h4>
+                        <div class="payment-options">
+                            <button class="pay-btn active" id="pay-cash" onclick="selectPayment('Cash')">Cash</button>
+                            <button class="pay-btn" id="pay-digital" onclick="selectPayment('Digital')">Bit</button>
+                        </div>
+                        <p id="payment-instructions" class="payment-instructions">--</p>
+                    </div>
+
+                    <button class="add-to-cart" id="add-cart-btn" onclick="submitOrder()">Place Order</button>
                 </div>
             </div>
         </div>
