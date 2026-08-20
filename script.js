@@ -1,4 +1,3 @@
-// --- PASTE YOUR TWO FORMSPREE ENDPOINT URLS HERE ---
 const ORDER_WEBHOOK_URL_IL = "https://formspree.io/f/xbgrwoay";
 const ORDER_WEBHOOK_URL_US = "https://formspree.io/f/xkjwkvly";
 
