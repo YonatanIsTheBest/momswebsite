@@ -1,6 +1,6 @@
-// --- PASTE YOUR TWO FORMSPREE ENDPOINT URLS HERE ---
-const ORDER_WEBHOOK_URL_IL = "YOUR_ISRAEL_ENDPOINT_HERE";
-const ORDER_WEBHOOK_URL_US = "YOUR_USA_ENDPOINT_HERE";
+// --- LIVE FORMSPREE ENDPOINTS ---
+const ORDER_WEBHOOK_URL_IL = "https://formspree.io/f/xbgrwoay";
+const ORDER_WEBHOOK_URL_US = "https://formspree.io/f/xkjwkvly";
 
 // State Variables 
 let userRegion = '';
@@ -123,7 +123,7 @@ function setRegion(region) {
         document.getElementById('pay-digital').innerText = 'Zelle';
     }
 
-    // Translate Main Site UI (Added the two new fields here!)
+    // Translate Main Site UI
     document.getElementById('book-title').innerText = langObj.title;
     document.getElementById('desc-placeholder').innerHTML = langObj.description;
     document.getElementById('edition-label').innerText = langObj.editionLabel;
@@ -201,7 +201,6 @@ function submitOrder() {
 
     const targetUrl = userRegion === 'Israel' ? ORDER_WEBHOOK_URL_IL : ORDER_WEBHOOK_URL_US;
 
-    // The NEW data sent to your Email
     const payload = {
         Customer_Name: buyerName,
         Phone_Number: buyerPhone,
