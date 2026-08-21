@@ -1,7 +1,8 @@
-const ORDER_WEBHOOK_URL_IL = "https://formspree.io/f/xbgrwoay";
-const ORDER_WEBHOOK_URL_US = "https://formspree.io/f/xkjwkvly";
+// --- PASTE YOUR TWO FORMSPREE ENDPOINT URLS HERE ---
+const ORDER_WEBHOOK_URL_IL = "YOUR_ISRAEL_ENDPOINT_HERE";
+const ORDER_WEBHOOK_URL_US = "YOUR_USA_ENDPOINT_HERE";
 
-// State Variables (Leave these as they are)
+// State Variables 
 let userRegion = '';
 let userLanguage = '';
 let selectedEdition = 'he'; 
@@ -22,12 +23,13 @@ const translations = {
         ruEdition: "Russian",
         priceLabel: "Price",
         namePlaceholder: "Full Name",
+        phonePlaceholder: "Phone Number",
+        addressPlaceholder: "Delivery Address",
         paymentLabel: "Payment Method:",
         cash: "Cash",
         cartBtn: "Place Order",
         alertSuccess: "Thank you! Your order has been placed.",
-        alertError: "Please enter your full name before ordering.",
-        // Payment Instructions
+        alertError: "Please fill out your name, phone number, and address before ordering.",
         cashInst: "Pay in cash upon delivery/pickup.",
         bitInst: "Send <strong>80 ₪</strong> via Bit to: <br><strong style='font-size:1.2em;'>+972 54-538-4137</strong>",
         zelleInst: "Send <strong>$40</strong> via Zelle to: <br><strong style='font-size:1.2em;'>+1 518 466 8854</strong><br>(Lika Yakovis)"
@@ -46,12 +48,13 @@ const translations = {
         ruEdition: "רוסית",
         priceLabel: "מחיר",
         namePlaceholder: "שם מלא",
+        phonePlaceholder: "מספר טלפון",
+        addressPlaceholder: "כתובת למשלוח",
         paymentLabel: "אמצעי תשלום:",
         cash: "מזומן",
         cartBtn: "בצע הזמנה",
         alertSuccess: "תודה! ההזמנה שלך התקבלה בהצלחה.",
-        alertError: "אנא הכנס את שמך המלא לפני ביצוע ההזמנה.",
-        // Payment Instructions - Added <span dir="ltr"> to fix number formatting
+        alertError: "אנא מלא/י שם, מספר טלפון וכתובת לפני ביצוע ההזמנה.",
         cashInst: "התשלום במזומן בעת המסירה/האיסוף.",
         bitInst: "העבר <strong>80 ₪</strong> בביט למספר: <br><strong style='font-size:1.2em;'><span dir='ltr'>+972 54-538-4137</span></strong>",
         zelleInst: "העבר <strong>$40</strong> ב-Zelle למספר: <br><strong style='font-size:1.2em;'><span dir='ltr'>+1 518 466 8854</span></strong><br>(Lika Yakovis)"
@@ -70,12 +73,13 @@ const translations = {
         ruEdition: "Русский",
         priceLabel: "Цена",
         namePlaceholder: "Полное Имя",
+        phonePlaceholder: "Номер телефона",
+        addressPlaceholder: "Адрес доставки",
         paymentLabel: "Способ оплаты:",
         cash: "Наличные",
         cartBtn: "Оформить заказ",
         alertSuccess: "Спасибо! Ваш заказ принят.",
-        alertError: "Пожалуйста, введите свое полное имя перед заказом.",
-        // Payment Instructions
+        alertError: "Пожалуйста, введите ваше имя, телефон и адрес перед заказом.",
         cashInst: "Оплата наличными при доставке/самовывозе.",
         bitInst: "Отправьте <strong>80 ₪</strong> через Bit на номер: <br><strong style='font-size:1.2em;'>+972 54-538-4137</strong>",
         zelleInst: "Отправьте <strong>$40</strong> через Zelle на номер: <br><strong style='font-size:1.2em;'>+1 518 466 8854</strong><br>(Lika Yakovis)"
@@ -119,7 +123,7 @@ function setRegion(region) {
         document.getElementById('pay-digital').innerText = 'Zelle';
     }
 
-    // Translate Main Site UI
+    // Translate Main Site UI (Added the two new fields here!)
     document.getElementById('book-title').innerText = langObj.title;
     document.getElementById('desc-placeholder').innerHTML = langObj.description;
     document.getElementById('edition-label').innerText = langObj.editionLabel;
@@ -127,11 +131,12 @@ function setRegion(region) {
     document.getElementById('btn-ru').innerText = langObj.ruEdition;
     document.getElementById('price-label').innerText = langObj.priceLabel;
     document.getElementById('buyer-name').placeholder = langObj.namePlaceholder;
+    document.getElementById('buyer-phone').placeholder = langObj.phonePlaceholder;
+    document.getElementById('buyer-address').placeholder = langObj.addressPlaceholder;
     document.getElementById('payment-label').innerText = langObj.paymentLabel;
     document.getElementById('pay-cash').innerText = langObj.cash;
     document.getElementById('add-cart-btn').innerText = langObj.cartBtn;
 
-    // Call the function to display the translated payment instructions
     updatePaymentInstructions();
 
     const splashScreen = document.getElementById('splash-screen');
@@ -161,7 +166,6 @@ function selectPayment(method) {
     updatePaymentInstructions();
 }
 
-// Updates the instruction text box based on language, region, and payment choice
 function updatePaymentInstructions() {
     const langObj = translations[userLanguage];
     const box = document.getElementById('payment-instructions');
@@ -175,7 +179,6 @@ function updatePaymentInstructions() {
     }
 }
 
-// Image Gallery
 function changeImage(src) {
     document.getElementById('hero-img').src = src;
 }
@@ -183,9 +186,12 @@ function changeImage(src) {
 // Form Submission via Email/Formspree
 function submitOrder() {
     const buyerName = document.getElementById('buyer-name').value.trim();
+    const buyerPhone = document.getElementById('buyer-phone').value.trim();
+    const buyerAddress = document.getElementById('buyer-address').value.trim();
     const langObj = translations[userLanguage];
 
-    if (!buyerName) {
+    // Check if ALL three fields are filled out
+    if (!buyerName || !buyerPhone || !buyerAddress) {
         alert(langObj.alertError);
         return;
     }
@@ -193,18 +199,18 @@ function submitOrder() {
     const actualPaymentMethod = selectedPayment === 'Cash' ? 'Cash' : (userRegion === 'Israel' ? 'Bit' : 'Zelle');
     const actualEdition = selectedEdition === 'he' ? 'Hebrew' : 'Russian';
 
-    // Decide which Formspree link to send the email to based on the region
     const targetUrl = userRegion === 'Israel' ? ORDER_WEBHOOK_URL_IL : ORDER_WEBHOOK_URL_US;
 
-    // The data sent to your Email
+    // The NEW data sent to your Email
     const payload = {
         Customer_Name: buyerName,
+        Phone_Number: buyerPhone,
+        Delivery_Address: buyerAddress,
         Shipping_Region: userRegion,
         Book_Edition: actualEdition,
         Payment_Method: actualPaymentMethod
     };
 
-    // Send it to the correct Formspree endpoint
     fetch(targetUrl, {
         method: 'POST',
         headers: { 
@@ -216,7 +222,10 @@ function submitOrder() {
     .then(response => {
         if (response.ok) {
             alert(langObj.alertSuccess);
+            // Clear all fields after successful order
             document.getElementById('buyer-name').value = '';
+            document.getElementById('buyer-phone').value = '';
+            document.getElementById('buyer-address').value = '';
         } else {
             alert("There was an error sending the order. Please try again.");
         }

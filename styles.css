@@ -243,15 +243,19 @@ nav a { text-decoration: none; color: #333; font-weight: 600; }
     text-align: left;
 }
 
-#buyer-name {
+.form-input {
     width: 100%;
     padding: 12px;
     font-size: 1.1em;
     border: 1px solid #d4c8b3;
     border-radius: 6px;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+textarea.form-input {
+    resize: vertical; /* Lets them drag the address box larger if needed */
 }
 
 #payment-label {
